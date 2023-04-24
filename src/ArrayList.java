@@ -72,28 +72,23 @@ public class ArrayList<T> implements List<Integer> {
         return this.size;
     }
 
+    private class ArrayListIterator implements Iterator<T> {
+        private int currentIndex = 0;
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex < size && items[currentIndex] != null;
+        }
+
+        @Override
+        public T next() {
+            return items[currentIndex++];
+        }
+    }
+
     @Override
     public Iterator<Integer> iterator() {
-        Iterator<T> it = new Iterator<T>() {
-
-            private int currentIndex = 0;
-
-            @Override
-            public boolean hasNext() {
-                return currentIndex < size && items[currentIndex] != null;
-            }
-
-            @Override
-            public T next() {
-                return items[currentIndex++];
-            }
-
-            @Override
-            public void remove() {
-                throw new UnsupportedOperationException();
-            }
-        };
-        return (Iterator<Integer>) it;
+        return (Iterator<Integer>) new ArrayListIterator();
     }
 
     @Override

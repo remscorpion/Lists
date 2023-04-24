@@ -131,4 +131,23 @@ public class LinkedList<T> implements List<Integer> {
     public Iterator<Integer> iterator() {
         return (Iterator<Integer>) new LinkedListIterator();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LinkedList that = (LinkedList)o;
+        Node thisNode = this.head;
+        Node thatNode = that.head;
+        while (thisNode != null && thatNode != null) {
+            if (!thisNode.value.equals(thatNode.value)) {
+                return false;
+            }
+            thisNode = thisNode.next;
+            thatNode = thatNode.next;
+        }
+        if (thisNode == thatNode) return true;
+        else                      return false;
+    }
+
 }
