@@ -17,10 +17,10 @@ public class ArrayList<T> implements List<Integer> {
     }
 
     @Override
-    public void add(Integer item) {
+    public void add(T item) {
         if (size + 1 > this.items.length) this.items = (T[]) copy();
 
-        this.items[size++] = (T) items;
+        this.items[size++] = item;
 
     }
 
@@ -31,40 +31,38 @@ public class ArrayList<T> implements List<Integer> {
     }
 
     @Override
-    public boolean contains(Integer item) {
-        for (Object o : this.items) {
+    public boolean contains(T item) {
+        for (T o : this.items) {
             if (o == item) return true;
         }
         return false;
     }
 
     @Override
-    public Integer get(int i) {
-        return (Integer) this.items[i];
+    public T get(int i) {
+        return this.items[i];
     }
 
     @Override
-    public int indexOf(Integer item) {
-        for (int i = 0; i < size; i++) {
-            if (this.items[i] == (T) item) return i;
-        }
+    public int indexOf(T item) {
+        for (int i = 0; i < size; i++) if (this.items[i] == item) return i;
 
         return -1;
     }
 
     @Override
     public void removeAt(int i) {
-        Object[] temp = new Object[size - i];
+        T[] temp = (T[]) new Object[size - i];
         int index = 0;
         for (int j = i+1; i < this.size; j++) temp[index++] = this.items[j];
         index = 0;
-        for (int j = i; j < --this.size; j++) this.items[j] = (T) temp[index++];
+        for (int j = i; j < --this.size; j++) this.items[j] = temp[index++];
 
     }
 
     @Override
-    public void set(int i, Integer item) {
-        this.items[i] = (T) item;
+    public void set(int i, T item) {
+        this.items[i] = item;
     }
 
     @Override
@@ -87,8 +85,8 @@ public class ArrayList<T> implements List<Integer> {
     }
 
     @Override
-    public Iterator<Integer> iterator() {
-        return (Iterator<Integer>) new ArrayListIterator();
+    public Iterator<T> iterator() {
+        return (Iterator<T>) new ArrayListIterator();
     }
 
     @Override

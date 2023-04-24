@@ -5,38 +5,41 @@ public class LinkedList<T> implements List<Integer> {
         T value;
         Node next;
 
-        public Node(Object v) {
-            this.value = (T) v;
+        public Node(T v) {
+            this.value = v;
             this.next = null;
-        }
-
-        public Node(Object v, Node n) {
-            this.value = (T) v;
-            this.next = n;
         }
 
         public boolean equals(Object v){
             return v == this.value;
         }
+
+        @Override
+        public String toString() {
+            return this.value + "";
+        }
     }
     public Node head;
+
     public LinkedList() {
         this.head = null;
     }
-    public LinkedList(Object v) {
+
+    public LinkedList(T v) {
         this.head = new Node(v);
     }
+
     @Override
-    public void add(Integer item) {
+    public void add(T item) {
         if (this.head == null) {
-            this.head = new Node((T) item);
+            this.head = new Node(item);
         } else {
             Node c = this.head;
             while (c != null){
                 c = c.next;
             }
 
-            c = new Node((T) item);
+            c = new Node(item);
         }
     }
 
@@ -46,7 +49,7 @@ public class LinkedList<T> implements List<Integer> {
     }
 
     @Override
-    public boolean contains(Integer item) {
+    public boolean contains(T item) {
         Node c = this.head;
         while (c != null) {
             if (c.value == item) return true;
@@ -57,16 +60,16 @@ public class LinkedList<T> implements List<Integer> {
     }
 
     @Override
-    public Integer get(int i) {
+    public T get(int i) {
         Node c = this.head;
         int j = 0;
         while (j++ < i) c = c.next;
 
-        return (Integer) c.value;
+        return c.value;
     }
 
     @Override
-    public int indexOf(Integer item) {
+    public int indexOf(T item) {
         int i = 0;
         Node c = this.head;
         while (c != null) {
@@ -90,11 +93,11 @@ public class LinkedList<T> implements List<Integer> {
     }
 
     @Override
-    public void set(int i, Integer item) {
+    public void set(int i, T item) {
         Node c = this.head;
         int j = 0;
         while (j++ <= i) c = c.next;
-        c.value = (T) item;
+        c.value = item;
     }
 
     @Override
@@ -125,6 +128,19 @@ public class LinkedList<T> implements List<Integer> {
             current = current.next;
             return n.value;
         }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder("[");
+        Node c = this.head;
+        while(c != null) {
+            str.append(c).append(", ");
+            c = c.next;
+        }
+        str.delete(str.length() - 2, str.length()).append("]");
+
+        return str.toString();
     }
 
     @Override

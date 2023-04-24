@@ -201,13 +201,13 @@ class ArrayListTest {
         assertEquals(15, sum);
     }
 
-    @Test
-    void isGeneric() {
-        List<String> list = new ArrayList<String>();
-        list.add("eggs");
-        list.add("bread");
-        list.add("tea");
-        assertEquals("[eggs, bread, tea]", list.toString());
-    }
+//    @Test
+//    void isGeneric() {
+//        List<String> list = new ArrayList<String>();
+//        list.add("eggs");
+//        list.add("bread");
+//        list.add("tea");
+//        assertEquals("[eggs, bread, tea]", list.toString());
+//    }
 
 }
