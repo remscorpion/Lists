@@ -1,17 +1,17 @@
+/**
+ * @author Tomohiro Matsunaga
+ */
 import java.util.Iterator;
 
-public class LinkedList<T> implements List<Integer> {
-    class Node {
+public class LinkedList<T> implements List<T> {
+    private int size;
+    public class Node {
         T value;
         Node next;
 
         public Node(T v) {
             this.value = v;
             this.next = null;
-        }
-
-        public boolean equals(Object v){
-            return v == this.value;
         }
 
         @Override
@@ -23,10 +23,7 @@ public class LinkedList<T> implements List<Integer> {
 
     public LinkedList() {
         this.head = null;
-    }
-
-    public LinkedList(T v) {
-        this.head = new Node(v);
+        this.size = 0;
     }
 
     @Override
@@ -35,16 +32,18 @@ public class LinkedList<T> implements List<Integer> {
             this.head = new Node(item);
         } else {
             Node c = this.head;
-            while (c != null){
+            while (c.next != null){
                 c = c.next;
             }
 
-            c = new Node(item);
+            c.next = new Node(item);
         }
+        this.size++;
     }
 
     @Override
     public void clear() {
+        this.size = 0;
         this.head = null;
     }
 
@@ -53,7 +52,6 @@ public class LinkedList<T> implements List<Integer> {
         Node c = this.head;
         while (c != null) {
             if (c.value == item) return true;
-
             c = c.next;
         }
         return false;
@@ -75,42 +73,38 @@ public class LinkedList<T> implements List<Integer> {
         while (c != null) {
             if(c.value == item) return i;
             c = c.next;
+            i++;
         }
         return -1;
     }
 
     @Override
     public void removeAt(int i) {
-        Node c = this.head;
-        Node p = c;
-        int j = 0;
-        while (j++ <= i) {
-            p = c;
-            c = c.next;
+        if (i == 0) {
+            head = head.next;
+        } else {
+            Node c = this.head;
+            Node p = c;
+            int j = 0;
+            while (j++ < i) {
+                p = c;
+                c = c.next;
+            }
+            p.next = c.next;
+            this.size--;
         }
-        p.next = c.next;
-
     }
-
     @Override
     public void set(int i, T item) {
         Node c = this.head;
         int j = 0;
-        while (j++ <= i) c = c.next;
+        while (j++ < i) c = c.next;
         c.value = item;
     }
 
     @Override
     public int size() {
-        if (this.head == null) return 0;
-        int count = 0;
-        Node c = this.head;
-        while(c != null) {
-            c = c.next;
-            count++;
-        }
-
-        return count;
+        return this.size;
     }
 
     private class LinkedListIterator implements Iterator<T> {
@@ -132,6 +126,7 @@ public class LinkedList<T> implements List<Integer> {
 
     @Override
     public String toString() {
+        if (this.size == 0) return "[]";
         StringBuilder str = new StringBuilder("[");
         Node c = this.head;
         while(c != null) {
@@ -144,8 +139,8 @@ public class LinkedList<T> implements List<Integer> {
     }
 
     @Override
-    public Iterator<Integer> iterator() {
-        return (Iterator<Integer>) new LinkedListIterator();
+    public Iterator<T> iterator() {
+        return new LinkedListIterator();
     }
 
     @Override

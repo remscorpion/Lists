@@ -1,6 +1,10 @@
+/**
+ * @author Tomohiro Matsunaga
+ */
+
 import java.util.Iterator;
 
-public class ArrayList<T> implements List<Integer> {
+public class ArrayList<T> implements List<T> {
 
     private int size;
     private T items[];
@@ -54,10 +58,10 @@ public class ArrayList<T> implements List<Integer> {
     public void removeAt(int i) {
         T[] temp = (T[]) new Object[size - i];
         int index = 0;
-        for (int j = i+1; i < this.size; j++) temp[index++] = this.items[j];
+        for (int j = i+1; j < this.size; j++) temp[index++] = this.items[j];
         index = 0;
-        for (int j = i; j < --this.size; j++) this.items[j] = temp[index++];
-
+        for (int j = i; j < this.size - 1; j++) this.items[j] = temp[index++];
+        this.size--;
     }
 
     @Override
@@ -105,6 +109,7 @@ public class ArrayList<T> implements List<Integer> {
 
     @Override
     public String toString() {
+        if (size == 0) return "[]";
         StringBuilder str = new StringBuilder("[");
         for(int i = 0; i < size; i++) str.append(this.items[i]).append(", ");
         str.delete(str.length() - 2, str.length()).append("]");

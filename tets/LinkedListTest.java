@@ -200,13 +200,19 @@ class LinkedListTest {
         assertEquals(15, sum);
     }
 
-//    @Test
-//    void isGeneric() {
-//        List<String> list = new LinkedList<String>();
-//        list.add("eggs");
-//        list.add("bread");
-//        list.add("tea");
-//        assertEquals("[eggs, bread, tea]", list.toString());
-//    }
+    @Test
+    void isGeneric() {
+        List<String> list = new LinkedList<String>();
+        list.add("eggs");
+        list.add("bread");
+        list.add("tea");
+        assertEquals("[eggs, bread, tea]", list.toString());
+    }
+
+    @Test
+    void testToString() {
+        list.add(5);
+        assertEquals("[5]", list.toString());
+    }
 
 }
